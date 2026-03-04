@@ -10,6 +10,8 @@
   <p><b>Securing low-power IoT communications using Ethereum Smart Contracts and Lightweight Stream Cryptography</b></p>
   
   <br>
+  
+  <img src="assets/home.png" alt="Home Screen" width="800"/>
 </div>
 
 ---
@@ -77,6 +79,28 @@ graph TD;
 
 <br>
 
+### 🖼️ Application Walkthrough
+
+#### Admin & User Management
+<p align="center">
+  <img src="assets/admin_login.png" width="400" alt="Admin Login"/>
+  <img src="assets/add_user.png" width="400" alt="Add User"/>
+  <img src="assets/user_login.png" width="400" alt="User Login"/>
+</p>
+
+#### Command Control & Simulation
+<p align="center">
+  <img src="assets/send_command.png" width="400" alt="Send Command"/>
+  <img src="assets/simulation.png" width="400" alt="Simulation"/>
+</p>
+
+#### Blockchain Logs & History
+<p align="center">
+  <img src="assets/view_history.png" width="800" alt="View History"/>
+</p>
+
+<br>
+
 ---
 
 ## 📊 Live Performance Benchmarks
@@ -84,7 +108,16 @@ graph TD;
 The project isn't just theoretical; it proves its viability through live, dynamically generated graphical benchmarks:
 
 * ⏱️ **Blockchain Response Time:** Real-time matplotlib graphs demonstrating the strict transaction latency required to mine a Smart Contract command. Proof that blockchain can handle near-real-time IoT requirements.
+
+<p align="center">
+  <img src="assets/response_time_graph.png" width="600" alt="Response Time Graph"/>
+</p>
+
 * ⚡ **Encryption Optimization:** A generated bar chart proving that the extended ChaCha20 implementation computes encryptions faster than standard AES, vastly reducing computational overhead.
+
+<p align="center">
+  <img src="assets/computation_time_graph.png" width="600" alt="Computation Time Graph"/>
+</p>
 
 <br>
 
