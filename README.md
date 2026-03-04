@@ -75,30 +75,31 @@ graph TD;
 3. **Wireless Routing Calculation:** The Python Tkinter IoT Simulation calculates the actual physical distance between simulated sensor nodes, determining the optimal, multi-hop "Euclidean" route from the Base Station to the target device.
 4. **Execution:** The target sensor decrypts the package and visualizes the change.
 
-<p align="center">
-  <img src="assets/home.png" alt="Home Screen" width="800"/>
-</p>
-
 <br>
 
 ### 🖼️ Application Walkthrough
 
-#### Admin & User Management
+#### 1. Admin & User Management
 <p align="center">
-  <img src="assets/admin_login.png" width="400" alt="Admin Login"/>
-  <img src="assets/add_user.png" width="400" alt="Add User"/>
-  <img src="assets/user_login.png" width="400" alt="User Login"/>
+  <img src="assets/admin_login.png" width="300" alt="Admin Login"/>
+  <img src="assets/add_user.png" width="300" alt="Add User"/>
+  <img src="assets/user_login.png" width="300" alt="User Login"/>
 </p>
 
-#### Command Control & Simulation
+#### 2. Command Control & Blockchain History
 <p align="center">
   <img src="assets/send_command.png" width="400" alt="Send Command"/>
-  <img src="assets/simulation.png" width="400" alt="Simulation"/>
+  <img src="assets/view_history.png" width="400" alt="View History"/>
 </p>
 
-#### Blockchain Logs & History
+#### 3. IoT Simulation Result
 <p align="center">
-  <img src="assets/view_history.png" width="800" alt="View History"/>
+  <img src="assets/simulation.png" width="600" alt="Simulation"/>
+</p>
+
+#### 4. System Architecture (The First Screen)
+<p align="center">
+  <img src="assets/home.png" alt="Home Screen" width="800"/>
 </p>
 
 <br>
