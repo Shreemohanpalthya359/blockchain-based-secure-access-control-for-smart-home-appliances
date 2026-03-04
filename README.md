@@ -10,8 +10,6 @@
   <p><b>Securing low-power IoT communications using Ethereum Smart Contracts and Lightweight Stream Cryptography</b></p>
   
   <br>
-  
-  <img src="assets/home.png" alt="Home Screen" width="800"/>
 </div>
 
 ---
@@ -76,6 +74,10 @@ graph TD;
 2. **Blockchain Verification:** `web3.py` talks to the local Ganache/Truffle chain to verify identity and record the intent immutably.
 3. **Wireless Routing Calculation:** The Python Tkinter IoT Simulation calculates the actual physical distance between simulated sensor nodes, determining the optimal, multi-hop "Euclidean" route from the Base Station to the target device.
 4. **Execution:** The target sensor decrypts the package and visualizes the change.
+
+<p align="center">
+  <img src="assets/home.png" alt="Home Screen" width="800"/>
+</p>
 
 <br>
 
@@ -152,19 +154,35 @@ npx truffle develop
 migrate
 ```
 
-### 2️⃣ Start the Web Application
-Open a **new** terminal, navigate to the `SmartHome` directory, and boot the Django backend:
-```bash
-python manage.py runserver
-```
-*Access the beautiful UI at `http://127.0.0.1:8000`*
+### 2️⃣ Wake Up the IoT Devices
+Open a **new** terminal, navigate to the `SmartHome` directory, activate your environment, and launch the graphical node simulator:
 
-### 3️⃣ Wake Up the IoT Devices
-Open a **third** terminal, navigate to the `SmartHome` directory, and launch the graphical node simulator (which handles the TCP socket server):
+**On Linux/Mac:**
 ```bash
+source ../venv/bin/activate
+python IOTSimulation.py
+```
+**On Windows:**
+```cmd
+..\venv\Scripts\activate
 python IOTSimulation.py
 ```
 *(Optionally click "Generate Sensor Networks" to visually map out your IoT environment).*
+
+### 3️⃣ Start the Web Application
+Open a **third** terminal, navigate to the `SmartHome` directory, activate your environment, and boot the Django backend:
+
+**On Linux/Mac:**
+```bash
+source ../venv/bin/activate
+python manage.py runserver
+```
+**On Windows:**
+```cmd
+..\venv\Scripts\activate
+python manage.py runserver
+```
+*Access the UI at `http://127.0.0.1:8000`*
 
 ---
 <div align="center">
