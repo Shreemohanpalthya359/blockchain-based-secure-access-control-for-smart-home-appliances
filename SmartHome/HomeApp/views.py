@@ -10,6 +10,8 @@ from web3 import Web3, HTTPProvider
 import io
 import base64
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import timeit
 import pyaes, pbkdf2, binascii, os, secrets
@@ -40,42 +42,65 @@ def decrypt(enc, key):
 def getContract():
     global contract, web3
     blockchain_address = 'http://127.0.0.1:9545'
-    web3 = Web3(HTTPProvider(blockchain_address))
-    # Get the first account from ganache/truffle
-    accounts = web3.eth.accounts
-    default_account = accounts[0] if accounts else None
-    web3.eth.default_account = default_account
-    compiled_contract_path = 'SmartHome.json' #SmartHome contract file
-    deployed_contract_address = '0xA8A0603d86E2cf15B7988d44B7685f6009Dc81D0' #contract address
-    with open(compiled_contract_path) as file:
-        contract_json = json.load(file)  # load contract info as JSON
-        contract_abi = contract_json['abi']  # fetch contract's abi - necessary to call its functions
-    file.close()
-    contract = web3.eth.contract(address=deployed_contract_address, abi=contract_abi)
+    try:
+        web3 = Web3(HTTPProvider(blockchain_address))
+        # Get the first account from ganache/truffle
+        accounts = web3.eth.accounts
+        default_account = accounts[0] if accounts else None
+        web3.eth.default_account = default_account
+        compiled_contract_path = '../hello-eth/build/contracts/SmartHome.json' #SmartHome contract file
+        with open(compiled_contract_path) as file:
+            contract_json = json.load(file)  # load contract info as JSON
+            contract_abi = contract_json['abi']  # fetch contract's abi - necessary to call its functions
+            
+            # Dynamically get the contract address from the most recent network deployment
+            networks = contract_json.get('networks', {})
+            if networks:
+                # get the highest network ID (usually the most recent deployment)
+                latest_network_id = max(networks.keys())
+                deployed_contract_address = networks[latest_network_id]['address']
+            else:
+                raise Exception("No network deployment found in SmartHome.json")
+
+        contract = web3.eth.contract(address=deployed_contract_address, abi=contract_abi)
+    except Exception as e:
+        contract = None
+        print("Blockchain not connected yet:", e)
+
 getContract()
 
 def getCommandList():
     global commandList, contract
     commandList = []
-    count = contract.functions.getCommandCount().call()
-    for i in range(0, count):
-        user = contract.functions.getUserid(i).call()
-        sensor = contract.functions.getSensor(i).call()
-        value = contract.functions.getCommandValue(i).call()
-        dd = contract.functions.getCommandDate(i).call()
-        commandList.append([user, sensor, value, dd])
+    if contract is None:
+        getContract()
+    try:
+        count = contract.functions.getCommandCount().call()
+        for i in range(0, count):
+            user = contract.functions.getUserid(i).call()
+            sensor = contract.functions.getSensor(i).call()
+            value = contract.functions.getCommandValue(i).call()
+            dd = contract.functions.getCommandDate(i).call()
+            commandList.append([user, sensor, value, dd])
+    except Exception as e:
+        print("Could not get command list:", e)
 
 def getUserList():
     global userList, contract
     userList = []
-    count = contract.functions.getUserCount().call()
-    for i in range(0, count):
-        name = contract.functions.getUsername(i).call()
-        password = contract.functions.getPassword(i).call()
-        phone = contract.functions.getPhone(i).call()
-        email = contract.functions.getEmail(i).call()
-        address = contract.functions.getAddress(i).call()
-        userList.append([name, password, phone, email, address])          
+    if contract is None:
+        getContract()
+    try:
+        count = contract.functions.getUserCount().call()
+        for i in range(0, count):
+            name = contract.functions.getUsername(i).call()
+            password = contract.functions.getPassword(i).call()
+            phone = contract.functions.getPhone(i).call()
+            email = contract.functions.getEmail(i).call()
+            address = contract.functions.getAddress(i).call()
+            userList.append([name, password, phone, email, address])          
+    except Exception as e:
+        print("Could not get user list:", e)
         
 getCommandList()
 getUserList()

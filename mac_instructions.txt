@@ -1,0 +1,30 @@
+Mac Installation and Execution Instructions
+-------------------------------------------
+
+1. Prerequisites:
+   - Node.js installed (e.g., via Homebrew: `brew install node`)
+   - Python 3 installed (e.g., via Homebrew: `brew install python`)
+
+2. Initial Setup:
+   - Open your terminal and navigate to this project's root folder.
+   - Run the full setup script to install all Node.js and Python dependencies:
+     `./setup_mac.sh`
+
+3. STEP 1: Deploy Smart Contracts
+   - Open a terminal and navigate to the `hello-eth` directory.
+   - Run: `npx truffle migrate --network development`
+   - Copy the "contract address" from the output (under `2_deploy_contracts.js` -> `SmartHome`).
+
+4. STEP 2: Update Configuration
+   - Open `SmartHome/HomeApp/views.py` and update line 50 with the new contract address.
+   - Open `SmartHome/IOTSimulation.py` and update line 44 with the same contract address.
+
+5. STEP 3: Start IOT Simulation
+   - Open a terminal in the `SmartHome` directory.
+   - Run: `./runSimulation_mac.sh`
+   - **IMPORTANT:** Once the window opens, click the **"Generate Sensor Networks"** button. This must be done BEFORE sending commands from the web UI.
+
+6. STEP 4: Start Django Web Server
+   - Open another terminal in the `SmartHome` directory.
+   - Run: `./run_mac.sh`
+   - Visit http://127.0.0.1:8000/ in your browser.

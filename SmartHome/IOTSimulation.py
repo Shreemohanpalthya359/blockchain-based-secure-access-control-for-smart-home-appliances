@@ -40,11 +40,20 @@ def getContract():
             return None
         default_account = accounts[0] if accounts else None
         web3.eth.default_account = default_account
-        compiled_contract_path = 'SmartHome.json' #SmartHome contract file
-        deployed_contract_address = '0xA8A0603d86E2cf15B7988d44B7685f6009Dc81D0' #contract address
+        compiled_contract_path = '../hello-eth/build/contracts/SmartHome.json' #SmartHome contract file
         with open(compiled_contract_path) as file:
             contract_json = json.load(file)  # load contract info as JSON
             contract_abi = contract_json['abi']  # fetch contract's abi - necessary to call its functions
+            
+            # Dynamically get the contract address from the most recent network deployment
+            networks = contract_json.get('networks', {})
+            if networks:
+                # get the highest network ID (usually the most recent deployment)
+                latest_network_id = max(networks.keys())
+                deployed_contract_address = networks[latest_network_id]['address']
+            else:
+                raise Exception("No network deployment found in SmartHome.json")
+
         file.close()
         contract = web3.eth.contract(address=deployed_contract_address, abi=contract_abi)
         # Test if contract is accessible
@@ -358,12 +367,13 @@ def Main():
     root.geometry("1300x1200")
     root.title("Smart Home Simulation Networks")
     root.resizable(True,True)
+    root.config(bg='white')
     font1 = ('times', 12, 'bold')
 
-    canvas = Canvas(root, width = 800, height = 700)
+    canvas = Canvas(root, width = 800, height = 700, bg='white')
     canvas.pack()
 
-    l1 = Label(root, text='IOT Sensor ID:')
+    l1 = Label(root, text='IOT Sensor ID:', bg='white', fg='black')
     l1.config(font=font1)
     l1.place(x=820,y=10)
 
@@ -383,7 +393,7 @@ def Main():
     restartBtn.place(x=1080,y=60)
     restartBtn.config(font=font1)
 
-    text=Text(root,height=25,width=60)
+    text=Text(root,height=25,width=60, bg='white', fg='black')
     scroll=Scrollbar(text)
     text.configure(yscrollcommand=scroll.set)
     text.place(x=800,y=110)
